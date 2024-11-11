@@ -1,0 +1,21 @@
+{
+    "name": "pc/server",
+    "description": "full-stack scandiweb-ecommerce ks",
+    "autoload": {
+        "psr-4": {
+            "App\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "kiktye",
+            "email": "kikostojanov4466@yahoo.com"
+        }
+    ],
+    "require": {
+        "webonyx/graphql-php": "^15.18",
+        "illuminate/database": "^11.30",
+        "vlucas/phpdotenv": "^5.6",
+        "nikic/fast-route": "^1.3"
+    }
+}
