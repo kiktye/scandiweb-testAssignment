@@ -3,9 +3,11 @@
 namespace App\Test;
 
 require_once __DIR__ . '/ObjectTypes/QueryType.php';
+require_once __DIR__ . '/ObjectTypes/MutationType.php';
 
 use GraphQL\GraphQL as GraphQLBase;
 use App\Types\QueryType;
+use App\Types\MutationType;
 use GraphQL\Type\Schema;
 use GraphQL\Type\SchemaConfig;
 use RuntimeException;
@@ -17,9 +19,14 @@ class GraphQL
     static public function handle()
     {
         try {
+
+            $queryType = new QueryType();
+            $mutationType = new MutationType();
+
             $schema = new Schema(
                 (new SchemaConfig())
-                    ->setQuery(new QueryType())
+                    ->setQuery($queryType)
+                    ->setMutation($mutationType)
             );
 
             $rawInput = file_get_contents('php://input');
@@ -36,7 +43,7 @@ class GraphQL
             $output = $result->toArray();
         } catch (Throwable $e) {
             $output = [
-                'error' => [
+                'erroring' => [
                     'message' => $e->getMessage(),
                     'file' => $e->getFile(),
                     'line' => $e->getLine(),

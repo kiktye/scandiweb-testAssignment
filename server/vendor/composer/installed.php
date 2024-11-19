@@ -3,7 +3,7 @@
         'name' => 'pc/server',
         'pretty_version' => 'dev-main',
         'version' => 'dev-main',
-        'reference' => 'ea6e0efec8604d82d8964afc555dd23c52e83e91',
+        'reference' => 'f209b53b70b9c79044a58996361f105abe74c95d',
         'type' => 'library',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -109,6 +109,15 @@
             'aliases' => array(),
             'dev_requirement' => false,
         ),
+        'laravel/serializable-closure' => array(
+            'pretty_version' => 'v1.3.6',
+            'version' => '1.3.6.0',
+            'reference' => 'f865a58ea3a0107c336b7045104c75243fa59d96',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../laravel/serializable-closure',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
         'nesbot/carbon' => array(
             'pretty_version' => '3.8.2',
             'version' => '3.8.2.0',
@@ -130,7 +139,7 @@
         'pc/server' => array(
             'pretty_version' => 'dev-main',
             'version' => 'dev-main',
-            'reference' => 'ea6e0efec8604d82d8964afc555dd23c52e83e91',
+            'reference' => 'f209b53b70b9c79044a58996361f105abe74c95d',
             'type' => 'library',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),

@@ -1,10 +1,11 @@
-import { Link } from "react-router-dom";
+import { useState, useEffect, useRef } from "react";
+import { useSelector } from "react-redux";
 import { useQuery } from "@apollo/client";
 import { CATEGORIES } from "../graphQL/Query";
-import { useState, useEffect } from "react";
+
+import { Link } from "react-router-dom";
 import Logo from "../assets/logo";
 import Cart from "../assets/cart";
-import { useSelector } from "react-redux";
 import CartModal from "./cartModal";
 
 const Header = ({
@@ -27,15 +28,30 @@ const Header = ({
   const [totalQuantity, setTotalQuantity] = useState(0);
   const carts = useSelector((store: any) => store.cart.items);
 
+  // previous cart length to check if the cart has been updated
+  const prevCartLength = useRef(carts.length);
+
   useEffect(() => {
     let total = 0;
-
     carts.forEach((item: any) => (total += item.quantity));
 
+    // total quantity of items in the cart
     setTotalQuantity(total);
+
+    // if the cart has been updated open the cart modal
+    if (carts.length > prevCartLength.current) {
+      setIsCartModalOpen(true);
+    }
+
+    prevCartLength.current = carts.length;
   }, [carts]);
 
   const [isCartModalOpen, setIsCartModalOpen] = useState(false);
+
+  // disable scrolling when cart modal is open
+  useEffect(() => {
+    document.body.style.overflow = isCartModalOpen ? "hidden" : "auto";
+  }, [isCartModalOpen]);
 
   const handleCartClick = () => {
     setIsCartModalOpen((prev) => !prev);
@@ -43,20 +59,26 @@ const Header = ({
 
   return (
     <header className="flex justify-between items-center mb-5 p-4">
-      {/* Render Categories */}
+      {/* Render Categories and each category leads to the home page with category selected */}
       <div className="flex space-x-4">
         {categories.map((category: { name: string }) => (
           <button
             key={category.name}
             onClick={() => handleCategoryClick(category.name)}
+            onClickCapture={isCartModalOpen ? handleCartClick : undefined}
             className={`relative pb-2 ${
               activeCategory === category.name
                 ? "after:content-[''] after:absolute after:bottom-0 after:left-0 after:right-0 after:h-[2px] after:bg-[#5AEE87] text-[#5AEE87]"
                 : ""
             }`}
+            data-testid={
+              activeCategory === category.name
+                ? "active-category-link"
+                : "category-link"
+            }
           >
             <h1 className="font-medium tracking-wider">
-              {category.name.toUpperCase()}
+              <Link to="/">{category.name.toUpperCase()}</Link>
             </h1>
           </button>
         ))}
@@ -64,13 +86,17 @@ const Header = ({
 
       {/* Logo to Homepage */}
       <Link to="/">
-        <Logo />
+        <div onClick={isCartModalOpen ? handleCartClick : undefined}>
+          <Logo />
+        </div>
       </Link>
 
+      {/* Cart Button and CartModal*/}
       <div className="relative">
         <button
           onClick={handleCartClick}
           className="w-10 h-10 rounded-full flex justify-center items-center relative"
+          data-testid="cart-btn"
         >
           <Cart width={24} height={24} color="#43464E" />
           {totalQuantity > 0 && (

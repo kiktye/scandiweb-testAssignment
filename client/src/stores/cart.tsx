@@ -21,6 +21,7 @@ const cartSlice = createSlice({
   name: "cart",
   initialState,
   reducers: {
+    // handles add to cart functionality (with quantity(no duplicates) and attributes)
     addToCart: (state, action: PayloadAction<CartItem>) => {
       const newItem = action.payload;
 
@@ -35,26 +36,29 @@ const cartSlice = createSlice({
       }
       localStorage.setItem("cartItems", JSON.stringify(state.items));
     },
+    // handles quantity increment and decrement
     plusQuantity: (state, action) => {
-      const item = state.items.find((item) => item.id === action.payload);
+      const item = state.items.find((item) => item.uniqueKey === action.payload);
       if (item) {
         item.quantity += 1;
       }
       localStorage.setItem("cartItems", JSON.stringify(state.items));
     },
     minusQuantity: (state, action) => {
-      const item = state.items.find((item) => item.id === action.payload);
+      const item = state.items.find((item) => item.uniqueKey === action.payload);
       if (item && item.quantity > 1) {
         item.quantity -= 1;
       } else {
-        state.items = state.items.filter((item) => item.id !== action.payload);
+        state.items = state.items.filter((item) => item.uniqueKey !== action.payload);
       }
       localStorage.setItem("cartItems", JSON.stringify(state.items));
     },
+    // if quantity is 1, and user decreases one more, it removes the item
     removeItem: (state, action) => {
-      state.items = state.items.filter((item) => item.id !== action.payload);
+      state.items = state.items.filter((item) => item.uniqueKey !== action.payload);
       localStorage.setItem("cartItems", JSON.stringify(state.items));
     },
+    // from cart, user can update attributes (because if i add a product with quick-shop, it has default attributes and i want to change them?)-my thinking
     updateAttribute: (state, action) => {
       const { id, attributeName, value } = action.payload;
       const item = state.items.find((item) => item.id === id);
@@ -63,8 +67,13 @@ const cartSlice = createSlice({
       }
       localStorage.setItem("cartItems", JSON.stringify(state.items));
     },
+    // when order is created, cart is emptied
+    emptyCart: (state) => {
+      state.items = [];
+      localStorage.removeItem("cartItems");
+    },
   },
 });
 
-export const { addToCart } = cartSlice.actions;
+export const { addToCart, plusQuantity, minusQuantity, removeItem, updateAttribute, emptyCart } = cartSlice.actions;
 export default cartSlice.reducer;

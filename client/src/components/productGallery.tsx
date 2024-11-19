@@ -1,8 +1,9 @@
 import { useState } from "react";
 
-const ProductGallery = ({ gallery: gallery }: { gallery: string[] }) => {
+const ProductGallery = ({ gallery }: { gallery: string[] }) => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
+  // on click on prev/next button to change the main image to next or previous :D
   const handlePrevClick = () => {
     setCurrentImageIndex((prevIndex) =>
       prevIndex === 0 ? gallery.length - 1 : prevIndex - 1
@@ -15,13 +16,15 @@ const ProductGallery = ({ gallery: gallery }: { gallery: string[] }) => {
     );
   };
 
+  // on click on image from the gallery(left) to change to the main image
   const handleImageClick = (index: number) => {
     setCurrentImageIndex(index);
   };
 
   return (
-    <div className="flex items-center">
+    <div className="flex items-center" data-testid="product-gallery">
       <div className="flex flex-col mr-4 max-h-[625px] overflow-y-scroll">
+        {/* gallery images */}
         {gallery.map((image: string, index: number) => (
           <img
             key={index}
@@ -30,14 +33,17 @@ const ProductGallery = ({ gallery: gallery }: { gallery: string[] }) => {
             className={`cursor-pointer w-[110px] h-[110px] mb-4 ${
               index === currentImageIndex ? "border-2 border-gray-400" : ""
             }`}
+            alt="gallery"
           />
         ))}
       </div>
 
+      {/* main image with control buttons prev and next */}
       <div className="relative w-[600px] h-[625px]">
         <img
           src={gallery[currentImageIndex]}
           className="w-full h-full object-cover"
+          alt="main>"
         />
         <button
           onClick={handlePrevClick}

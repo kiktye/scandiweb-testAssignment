@@ -41,6 +41,10 @@ class ComposerStaticInitf3c8f331a66b0b1dbda2a844a94d886b
             'Psr\\Clock\\' => 10,
             'PhpOption\\' => 10,
         ),
+        'L' => 
+        array (
+            'Laravel\\SerializableClosure\\' => 28,
+        ),
         'I' => 
         array (
             'Illuminate\\Support\\' => 19,
@@ -125,6 +129,10 @@ class ComposerStaticInitf3c8f331a66b0b1dbda2a844a94d886b
         'PhpOption\\' => 
         array (
             0 => __DIR__ . '/..' . '/phpoption/phpoption/src/PhpOption',
+        ),
+        'Laravel\\SerializableClosure\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/laravel/serializable-closure/src',
         ),
         'Illuminate\\Support\\' => 
         array (

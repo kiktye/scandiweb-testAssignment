@@ -16,6 +16,7 @@
         "webonyx/graphql-php": "^15.18",
         "illuminate/database": "^11.30",
         "vlucas/phpdotenv": "^5.6",
-        "nikic/fast-route": "^1.3"
+        "nikic/fast-route": "^1.3",
+        "laravel/serializable-closure": "^1.3"
     }
 }
