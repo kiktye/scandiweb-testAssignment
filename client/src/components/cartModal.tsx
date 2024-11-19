@@ -53,6 +53,7 @@ const CartModal = ({ onClose }: CartModalProps) => {
     };
 
     createOrder({ variables: { ...order } });
+    alert("🚀 Order created successfully! Thank you for shopping with us!");
   };
 
   // total price of all items in the cart
