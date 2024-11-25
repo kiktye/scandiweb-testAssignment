@@ -1,6 +1,5 @@
 import { Outlet } from "react-router-dom";
 import Header from "./header";
-import { useState } from "react";
 
 const Layout = ({ selectedCategory, onSelectCategory }: { selectedCategory: string, onSelectCategory: (category: string) => void }) => {
 

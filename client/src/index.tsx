@@ -11,9 +11,11 @@ import {
 import { Provider } from "react-redux";
 import { store } from "./stores";
 
+const graphqlUri = process.env.REACT_APP_GRAPHQL_URI;
+
 const client = new ApolloClient({
   link: new HttpLink({
-    uri: "http://localhost:8000/graphql",
+    uri: graphqlUri,
   }),
   cache: new InMemoryCache(),
 });
