@@ -4,20 +4,18 @@ namespace App\Types;
 
 require_once __DIR__ . '/ProductType.php';
 
-use App\GraphQL\TypeRegistry;
 use GraphQL\Type\Definition\ObjectType;
 use GraphQL\Type\Definition\Type;
-use App\Models\Order;
 
-class OrderType extends ObjectType
+class OrderType
 {
-    public function __construct()
+    public static function getType(): ObjectType
     {
-        parent::__construct([
+        return new ObjectType([
             'name' => 'Order',
             'fields' => [
                 'id' => Type::nonNull(Type::id()),
-                'products' => Type::nonNull(Type::listOf(TypeRegistry::product())),
+                'products' => Type::nonNull(Type::string()),
                 'status' => Type::string(),
                 'total_price' => Type::float(),
                 'order_date' => Type::string(),
@@ -25,7 +23,3 @@ class OrderType extends ObjectType
         ]);
     }
 }
-
-
-
-?>

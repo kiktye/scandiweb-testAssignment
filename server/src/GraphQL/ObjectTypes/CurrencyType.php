@@ -2,16 +2,14 @@
 
 namespace App\Types;
 
-
 use GraphQL\Type\Definition\ObjectType;
 use GraphQL\Type\Definition\Type;
-use Models\Currency;
 
-class CurrencyType extends ObjectType
+class CurrencyType
 {
-    public function __construct()
+    public static function getType(): ObjectType
     {
-        parent::__construct([
+        return new ObjectType([
             'name' => 'Currency',
             'fields' => [
                 'label' => Type::nonNull(Type::string()),

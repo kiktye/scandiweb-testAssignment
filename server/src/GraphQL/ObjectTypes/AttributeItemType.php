@@ -2,16 +2,14 @@
 
 namespace App\Types;
 
-
 use GraphQL\Type\Definition\ObjectType;
 use GraphQL\Type\Definition\Type;
-use Models\AttributeItem;
 
-class AttributeItemType extends ObjectType
+class AttributeItemType
 {
-    public function __construct()
+    public static function getType(): ObjectType
     {
-        parent::__construct([
+        return new ObjectType([
             'name' => 'AttributeItem',
             'fields' => [
                 'id' => Type::nonNull(Type::id()),

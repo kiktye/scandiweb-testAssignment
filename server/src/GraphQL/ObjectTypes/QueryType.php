@@ -4,9 +4,7 @@ namespace App\Types;
 
 require_once __DIR__ . '/ProductType.php';
 require_once __DIR__ . '/CategoryType.php';
-require_once __DIR__ . '/TypeRegistry.php';
 
-use App\GraphQL\TypeRegistry;
 use App\Models\Category;
 use GraphQL\Type\Definition\ObjectType;
 use GraphQL\Type\Definition\Type;
@@ -22,13 +20,13 @@ class QueryType extends ObjectType
             'name' => 'Query',
             'fields' => [
                 'categories' => [
-                    'type' => Type::listOf(TypeRegistry::category()),
+                    'type' => Type::listOf(CategoryType::getType()),
                     'resolve' => function () {
                         return Category::all();
                     }
                 ],
                 'category' => [
-                    'type' => TypeRegistry::category(),
+                    'type' => CategoryType::getType(),
                     'args' => [
                         'id' => Type::nonNull(Type::id()),
                     ],
@@ -38,7 +36,7 @@ class QueryType extends ObjectType
                     }
                 ],
                 'products' => [
-                    'type' => Type::listOf(TypeRegistry::product()),
+                    'type' => Type::listOf(ProductType::getType()),
                     'resolve' => function () {
                         $products = Product::with('category')->get();
 
@@ -79,7 +77,7 @@ class QueryType extends ObjectType
                     }
                 ],
                 'product' => [
-                    'type' => TypeRegistry::product(),
+                    'type' => ProductType::getType(),
                     'args' => [
                         'id' => Type::nonNull(Type::id()),
                     ],

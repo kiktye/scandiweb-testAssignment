@@ -4,18 +4,23 @@ namespace App\Types;
 
 use GraphQL\Type\Definition\ObjectType;
 use GraphQL\Type\Definition\Type;
-use Models\Category;
 
 class CategoryType extends ObjectType
 {
-    public function __construct()
+    private static ?ObjectType $instance = null;
+
+    public static function getType(): ObjectType
     {
-        parent::__construct([
-            'name' => 'Category',
-            'fields' => [
-                'id' => Type::nonNull(Type::id()),
-                'name' => Type::nonNull(Type::string()),
-            ],
-        ]);
+        if (!self::$instance) {
+            self::$instance = new ObjectType([
+                'name' => 'Category',
+                'fields' => [
+                    'id' => Type::nonNull(Type::id()),
+                    'name' => Type::nonNull(Type::string()),
+                ],
+            ]);
+        }
+
+        return self::$instance;
     }
 }

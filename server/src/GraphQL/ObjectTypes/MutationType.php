@@ -2,13 +2,13 @@
 
 namespace App\Types;
 
-require_once __DIR__ . '/ProductType.php';
-require_once __DIR__ . '/CategoryType.php';
+require_once __DIR__ . '/ProductInputType.php';
+require_once __DIR__ . '/OrderType.php';
 
 use GraphQL\Type\Definition\ObjectType;
 use GraphQL\Type\Definition\Type;
-use GraphQL\Type\Definition\InputObjectType;
 use App\Models\Order;
+
 use Exception;
 use PDOException;
 use Throwable;
@@ -21,30 +21,9 @@ class MutationType extends ObjectType
             'name' => 'Mutation',
             'fields' => [
                 'createOrder' => [
-                    'type' => new ObjectType([
-                        'name' => 'Order',
-                        'fields' => [
-                            'id' => Type::nonNull(Type::id()),
-                            'products' => Type::nonNull(Type::string()),
-                            'status' => Type::string(),
-                            'total_price' => Type::float(),
-                            'order_date' => Type::string(),
-                        ],
-                    ]),
+                    'type' => OrderType::getType(),
                     'args' => [
-                        'products' => Type::nonNull(Type::listOf(
-                            new InputObjectType([
-                                'name' => 'ProductInput',
-                                'fields' => [
-                                    'id' => Type::nonNull(Type::id()),
-                                    'product_id' => Type::string(),
-                                    'name' => Type::string(),
-                                    'quantity' => Type::int(),
-                                    'price' => Type::string(),
-                                    'attributes' => Type::listOf(Type::string()),
-                                ],
-                            ])
-                        )),
+                        'products' => Type::nonNull(Type::listOf(ProductInputType::getType())),
                         'status' => Type::string(),
                         'total_price' => Type::float(),
                         'order_date' => Type::string(),
