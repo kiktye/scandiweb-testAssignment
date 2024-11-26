@@ -70,7 +70,7 @@ const ProductCard = (props: any) => {
       {/* if in stock then show add to cart button ( quick-shop function) */}
       {inStock && (
         <div className="absolute bottom-[4rem] right-[1.8rem] bg-[#52D67A] rounded-full w-10 h-10 flex justify-center items-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-          <button onClick={handleAddToCart}>
+          <button onClick={handleAddToCart} data-testid="add-to-cart">
             <Cart width={17} height={17} color="#FFF" />
           </button>
         </div>
