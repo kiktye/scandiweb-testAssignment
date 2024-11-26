@@ -15,7 +15,7 @@ const Detail = () => {
   if (error) return <p>Error: {error.message}</p>;
 
   return (
-    <div className="flex gap-10 items-start">
+    <div className="md:flex gap-10 items-start">
       <ProductGallery gallery={data.product.gallery} />
 
       <ProductDetails product={data.product} />

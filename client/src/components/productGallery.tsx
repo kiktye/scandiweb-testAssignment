@@ -22,8 +22,8 @@ const ProductGallery = ({ gallery }: { gallery: string[] }) => {
   };
 
   return (
-    <div className="flex items-center" data-testid="product-gallery">
-      <div className="flex flex-col mr-4 max-h-[625px] overflow-y-scroll">
+    <div className="flex-row md:flex items-center" data-testid="product-gallery">
+      <div className="flex md:flex-col mr-4 max-h-[625px] overflow-y-scroll">
         {/* gallery images */}
         {gallery.map((image: string, index: number) => (
           <img
@@ -39,7 +39,7 @@ const ProductGallery = ({ gallery }: { gallery: string[] }) => {
       </div>
 
       {/* main image with control buttons prev and next */}
-      <div className="relative w-[600px] h-[625px]">
+      <div className="relative md:w-[600px] md:h-[625px]">
         <img
           src={gallery[currentImageIndex]}
           className="w-full h-full object-cover"
