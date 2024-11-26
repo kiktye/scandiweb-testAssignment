@@ -71,14 +71,18 @@ const Header = ({
                 ? "after:content-[''] after:absolute after:bottom-0 after:left-0 after:right-0 after:h-[2px] after:bg-[#5AEE87] text-[#5AEE87]"
                 : ""
             }`}
-            data-testid={
-              activeCategory === category.name
-                ? "active-category-link"
-                : "category-link"
-            }
           >
             <h1 className="font-medium tracking-wider">
-              <Link to="/">{category.name.toUpperCase()}</Link>
+              <Link
+                to="/"
+                data-testid={
+                  activeCategory === category.name
+                    ? 'active-category-link'
+                    : 'category-link'
+                }
+              >
+                {category.name.toUpperCase()}
+              </Link>
             </h1>
           </button>
         ))}
@@ -96,7 +100,7 @@ const Header = ({
         <button
           onClick={handleCartClick}
           className="w-10 h-10 rounded-full flex justify-center items-center relative"
-          data-testid="cart-btn"
+          data-testid='cart-btn'
         >
           <Cart width={24} height={24} color="#43464E" />
           {totalQuantity > 0 && (
